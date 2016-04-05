@@ -20,6 +20,13 @@ class TrieTest < MiniTest::Test
     assert_equal ["t"], trie.root.children["h"].children["o"].children.keys
   end
 
+  def test_caps_not_added_if_letter_exists
+    trie = Trie.new
+    trie.insert("hi")
+    trie.insert("HI")
+    assert_equal ["h"], trie.root.children.keys
+  end
+
   def test_marks_node_as_word
     trie = Trie.new
     trie.insert("hi")
@@ -30,7 +37,25 @@ class TrieTest < MiniTest::Test
 
   end
 
+  def test_counts_words
+    trie = Trie.new
+    trie.insert("hi")
+    trie.insert("hit")
+    assert_equal 2, trie.count
 
+    trie.insert("hats")
+    trie.insert("hat")
+    assert_equal 4, trie.count
+
+    trie.insert("a")
+    trie.insert("box")
+    assert_equal 6, trie.count
+
+    trie.insert("drop")
+    trie.insert("lift")
+    assert_equal 8, trie.count
+
+  end
 
 
 end

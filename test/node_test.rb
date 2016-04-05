@@ -24,4 +24,15 @@ class NodeTest < MiniTest::Test
 
   end
 
+  def test_knows_it_has_children
+    node = Node.new
+    node.children["a"] = Node.new
+    node.children["b"] = Node.new
+    assert node.has_children?
+    refute node.children["a"].has_children?
+
+  end
+
+
+
 end

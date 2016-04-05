@@ -14,7 +14,11 @@ class Node
   end
 
   def has_child?(letter)
-    true if children.has_key?(letter)
+    children.has_key?(letter)
+  end
+
+  def has_children?
+    true if children.empty? == false
   end
 
 end
