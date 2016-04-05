@@ -1,6 +1,6 @@
 require "minitest/autorun"
 require "minitest/pride"
-require_relative "../lib/node.rb"
+require "./lib/node"
 
 class NodeTest < MiniTest::Test
   def test_word_false_at_initiation

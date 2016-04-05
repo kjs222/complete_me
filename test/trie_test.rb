@@ -1,6 +1,6 @@
 require "minitest/autorun"
 require "minitest/pride"
-require_relative "../lib/trie.rb"
+require "./lib/trie"
 
 class TrieTest < MiniTest::Test
 
@@ -56,6 +56,37 @@ class TrieTest < MiniTest::Test
     assert_equal 8, trie.count
 
   end
+
+  def test_it_finds
+    trie = Trie.new
+    trie.insert("hi")
+    trie.insert("hit")
+    hit_node = trie.root.children["h"].children["i"].children["t"]
+    assert_equal hit_node, trie.find("hit")
+    assert_equal nil, trie.find("run")
+
+    trie.insert("RUN")
+    run_node = trie.root.children["r"].children["u"].children["n"]
+
+  end
+
+  def test_marks_selection
+    trie = Trie.new
+    trie.insert("hi")
+    trie.insert("hit")
+    trie.insert("hitter")
+    trie.select("hi", "hit")
+
+    partial_node = trie.root.children["h"].children["i"]
+    assert_equal ({"hit" => 1}), trie.find("hi").preferred_suggestions
+    refute_equal ({"hit" => 1}), trie.find("h").preferred_suggestions
+
+    trie.select("hi", "hit")
+    assert_equal ({"hit" => 2}), trie.find("hi").preferred_suggestions
+
+
+  end
+
 
 
 end
