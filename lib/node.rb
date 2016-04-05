@@ -13,4 +13,8 @@ class Node
     @word = true
   end
 
+  def has_child?(letter)
+    true if children.has_key?(letter)
+  end
+
 end

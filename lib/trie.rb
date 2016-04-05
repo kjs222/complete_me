@@ -9,7 +9,7 @@ class Trie
 
   def insert(word, current=@root)
     letter = word.chars.first
-    if letter && !current.children.has_key?(letter)
+    if letter && !current.has_child?(letter)
       current.children[letter] = Node.new
       word.slice!(0)
       insert(word, current.children[letter])
