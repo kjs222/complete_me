@@ -70,13 +70,23 @@ class CompleteMeTest < MiniTest::Test
 
   end
 
-  def test_makes_suggestions
+  def test_finds_all_suggestions
     complete_me = CompleteMe.new
     complete_me.insert("hi")
     complete_me.insert("hit")
     complete_me.insert("happy")
     suggestions = complete_me.find_all_suggestions("hi")
     assert_equal ["hi", "hit"], suggestions
+  end
+
+  def test_orders_suggestions
+
+    complete_me = CompleteMe.new
+    complete_me.insert("happy")
+    complete_me.insert("hi")
+    complete_me.insert("hit")
+    complete_me.find("h").preferences = {"hi" => 1, "hit" =>17}
+    assert_equal ["hit", "hi", "happy"], complete_me.suggest("h")
   end
 
 end
