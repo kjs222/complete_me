@@ -58,7 +58,7 @@ class CompleteMe
     ordered = []
     preferred = find(partial).show_preferences
     preferred.each do |word|
-      ordered.push(word) if suggestions.include?(word)
+      ordered.push(word)
     end
     suggestions.each do |word|
       ordered.push(word) if !ordered.include?(word)

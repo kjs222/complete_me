@@ -57,7 +57,8 @@ class NodeTest < MiniTest::Test
   def test_show_preferences_sorts_by_value_in_array
     node = Node.new
     node.preferences = {"apple" => 1, "app" => 8, "all" => 9}
-    assert_equal [9, "all", 8, "app", 1, "apple"], node.show_preferences
+    # require 'pry'; binding.pry
+    assert_equal ["all", "app", "apple"], node.show_preferences
   end
 
 end

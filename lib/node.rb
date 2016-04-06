@@ -22,7 +22,8 @@ class Node
   end
 
   def show_preferences
-    preferences.invert.to_a.sort.reverse.flatten
+    show = preferences.invert.to_a.sort.reverse.flatten
+    show.keep_if {|item| item.is_a?(String)}
   end
 
 end
