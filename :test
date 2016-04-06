@@ -1,2 +1,0 @@
-ERROR: "bundle install" was called with arguments ["gem", "simplecov,", ":require", "=", ":group", "="]
-Usage: "bundle install [OPTIONS]"
