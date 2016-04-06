@@ -4,8 +4,7 @@ CompleteMe is an autocompletion tool that suggests words from a dictionary given
 
 ####To Use:
 
-You can use this autocomplete program using a dictionary or words already loaded on your computer or for a list of all addresses in the City of Denver.  If you want to use the program with addresses, dowload [this CSV file] http://data.denvergov.org/download/gis/addresses/csv/addresses.csv
-from the City of Denver.  Make note of the file path where it is saved.
+You can use this autocomplete program using a dictionary or words already loaded on your computer or for a list of all addresses in the City of Denver.  If you want to use the program with addresses, dowload [this CSV file](http://data.denvergov.org/download/gis/addresses/csv/addresses.csv) from the City of Denver.  Make note of the file path where it is saved.
 
 Open a session of Pry or IRB and load the CompleteMe file:
 `require "./lib/complete_me" `
