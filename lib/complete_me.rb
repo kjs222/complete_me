@@ -1,4 +1,5 @@
 require 'trie'
+require 'node'
 
 class CompleteMe
 
@@ -8,11 +9,11 @@ class CompleteMe
 
   attr_reader :trie
 
-  def root #not tested directly, but implicitly
+  def root
     trie.root
   end
 
-  def insert(word) #tested
+  def insert(word)
     trie.insert(word)
   end
 
@@ -24,11 +25,11 @@ class CompleteMe
     #trie.populate(words)
   end
 
-  def count #tested
+  def count
     trie.count
   end
 
-  def select(partial, selection) #tested
+  def select(partial, selection)
     partial_node = find(partial)
     if partial_node.preferences.include?(selection)
       partial_node.preferences[selection] += 1
@@ -55,8 +56,7 @@ class CompleteMe
 
   def order_suggestions(partial, suggestions)
     ordered = []
-    node = find(partial)
-    preferred = node.preferences.invert.to_a.sort.reverse.flatten
+    preferred = find(partial).show_preferences
     preferred.each do |word|
       ordered.push(word) if suggestions.include?(word)
     end
