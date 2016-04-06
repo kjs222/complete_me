@@ -32,7 +32,6 @@ class Trie
     counter
   end
 
-
   def populate(dictionary)
     format_dictionary(dictionary).each do |word|
       insert(word)
