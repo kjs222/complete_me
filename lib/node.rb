@@ -18,12 +18,11 @@ class Node
   end
 
   def has_children?
-    true if children.empty? == false
+    children.empty? == false
   end
 
   def show_preferences
     preferences.invert.to_a.sort.reverse.flatten
   end
-
 
 end

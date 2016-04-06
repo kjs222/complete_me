@@ -1,6 +1,7 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/trie"
+require "./lib/node"
 
 class TrieTest < MiniTest::Test
   def setup
@@ -8,14 +9,12 @@ class TrieTest < MiniTest::Test
   end
 
   def test_inserts_new_without_any_path
-    # trie = Trie.new
     @trie.insert("hi")
     assert_equal ["h"], @trie.root.children.keys
     assert_equal ["i"], @trie.root.children["h"].children.keys
   end
 
   def test_inserts_new_with_partial_path
-    # trie = Trie.new
     @trie.insert("hi")
     @trie.insert("hot")
     assert_equal ["h"], @trie.root.children.keys
@@ -23,27 +22,17 @@ class TrieTest < MiniTest::Test
     assert_equal ["t"], @trie.root.children["h"].children["o"].children.keys
   end
 
-  def test_caps_not_added_if_letter_exists
-    # trie = Trie.new
-    @trie.insert("hi")
-    @trie.insert("HI")
-    assert_equal ["h"], @trie.root.children.keys
-  end
-
   def test_marks_node_as_word
-    # trie = Trie.new
     @trie.insert("hi")
     @trie.insert("hot")
     refute @trie.root.children["h"].word
     assert @trie.root.children["h"].children["i"].word
     assert @trie.root.children["h"].children["o"].children["t"].word
-
   end
 
   def test_counts_words
     # require 'pry'; binding.pry
     assert_equal 0, @trie.count
-    # trie = Trie.new
     @trie.insert("hi")
     @trie.insert("hit")
     assert_equal 2, @trie.count
@@ -68,11 +57,15 @@ class TrieTest < MiniTest::Test
     hit_node = trie.root.children["h"].children["i"].children["t"]
     assert_equal hit_node, trie.find("hit")
     assert_equal nil, trie.find("run")
-
-    trie.insert("RUN")
-    run_node = trie.root.children["r"].children["u"].children["n"]
-
   end
 
+  def test_it_loads_dictionary
+    trie = Trie.new
+    dictionary = File.read("/usr/share/dict/words")
+    trie.populate(dictionary)
+    assert_equal 235886, trie.count
+    assert trie.find("Zuludom").word
+    refute trie.find("Zzzzzzzzzzzzz")
+  end
 
 end

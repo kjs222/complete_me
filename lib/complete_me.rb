@@ -21,8 +21,8 @@ class CompleteMe
     trie.find(word)
   end
 
-  def populate(file) #write in trie
-    #trie.populate(words)
+  def populate(dictionary)
+    trie.populate(dictionary)
   end
 
   def count

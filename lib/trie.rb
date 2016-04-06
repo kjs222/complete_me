@@ -8,7 +8,7 @@ class Trie
   attr_reader :root
 
   def insert(word, current=@root)
-    letter = letter_to_add(word)
+    letter = word.chars.first
     if letter && !current.has_child?(letter)
       current.children[letter] = Node.new
       insert(word[1..-1], current.children[letter])
@@ -21,7 +21,7 @@ class Trie
   end
 
   def count(current = @root)
-    # require 'pry'; binding.pry
+    #require 'pry'; binding.pry
     counter = 0
     if current.has_children?
       current.children.each do |letter, node|
@@ -33,12 +33,18 @@ class Trie
   end
 
 
-  def populate(file)
+  def populate(dictionary)
+    format_dictionary(dictionary).each do |word|
+      insert(word)
+    end
+  end
 
+  def format_dictionary(dictionary)
+    dictionary = dictionary.split("\n")
   end
 
   def find(partial, current=@root)
-    letters = partial.downcase.chars
+    letters = partial.chars
     letters.each do |letter|
       if current.has_child?(letter)
         current = current.children[letter]
@@ -46,13 +52,7 @@ class Trie
         return nil
       end
     end
-    current #why needed?
+    current
   end
-
-  def letter_to_add(word)
-    letter = word.chars.first
-    letter = letter.downcase if letter
-  end
-
 
 end
