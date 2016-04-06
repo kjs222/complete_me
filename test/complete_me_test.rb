@@ -54,20 +54,29 @@ class CompleteMeTest < MiniTest::Test
   end
 
   def test_marks_selection
-    complete_me = Trie.new
+    complete_me = CompleteMe.new
     complete_me.insert("hi")
     complete_me.insert("hit")
     complete_me.insert("hitter")
     complete_me.select("hi", "hit")
 
     partial_node = complete_me.root.children["h"].children["i"]
-    assert_equal ({"hit" => 1}), complete_me.find("hi").preferred_suggestions
-    refute_equal ({"hit" => 1}), complete_me.find("h").preferred_suggestions
+    assert_equal ({"hit" => 1}), complete_me.find("hi").preferences
+    refute_equal ({"hit" => 1}), complete_me.find("h").preferences
 
     complete_me.select("hi", "hit")
-    assert_equal ({"hit" => 2}), complete_me.find("hi").preferred_suggestions
+    assert_equal ({"hit" => 2}), complete_me.find("hi").preferences
 
 
+  end
+
+  def test_makes_suggestions
+    complete_me = CompleteMe.new
+    complete_me.insert("hi")
+    complete_me.insert("hit")
+    complete_me.insert("happy")
+    suggestions = complete_me.find_all_suggestions("hi")
+    assert_equal ["hi", "hit"], suggestions
   end
 
 end

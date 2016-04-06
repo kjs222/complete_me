@@ -28,8 +28,7 @@ class CompleteMe
     trie.count
   end
 
-  def select(partial, selection)
-    #move trie method to here (and tests).  Figure out what needs to change
+  def select(partial, selection) #tested
     partial_node = find(partial)
     if partial_node.preferred_suggestions.include?(selection)
       partial_node.preferred_suggestions[selection] += 1
@@ -37,6 +36,31 @@ class CompleteMe
       partial_node.preferred_suggestions[selection] = 1
     end
   end
+
+  def suggest(partial, suggestions = [])
+    current = find(partial)
+    suggestions << partial if current.word
+    if current.has_children?
+      current.children.each do |letter, node|
+        suggest(partial+letter, suggestions)
+      end
+    end
+    suggestions
+  end
+
+  def find_all_suggestions(partial, suggestions = [])
+    current = find(partial)
+    suggestions << partial if current.word
+    if current.has_children?
+      current.children.each do |letter, node|
+        suggest(partial+letter, suggestions)
+      end
+    end
+    suggestions
+  end
+
+
+
 
 
 end

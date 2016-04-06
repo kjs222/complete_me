@@ -1,4 +1,4 @@
-require "node"
+require_relative "node"
 
 class Trie
   def initialize
@@ -20,47 +20,26 @@ class Trie
 
   end
 
-  def count(current=@root)
-    counter = 0 #why not resetting each time - bc counter = counter + holds onto first part and only resets for the recursive call?
+  def count(current = @root)
+    # require 'pry'; binding.pry
+    counter = 0
     if current.has_children?
       current.children.each do |letter, node|
-        p letter #take this out after debugging
-        p counter = counter + count(node)
-        p counter +=1 if node.word == true
-        p counter #take this out after debugging
+        counter += 1 if node.word
+        counter = counter + count(node)
       end
-      return counter
-    else
-      return 0
     end
+    counter
   end
 
-  def suggest(partial)
-    # returns array of all available words starting with partial
-    #from partial node, go through all children looking for a words
-    #once you have a word, add it to an array
-
-
-    # addition is to order by preferred_suggestsion.values.reverse
-
-  end
 
   def populate(file)
 
   end
 
-  def select(partial, selection)
-    partial_node = find(partial)
-    if partial_node.preferred_suggestions.include?(selection)
-      partial_node.preferred_suggestions[selection] += 1
-    else
-      partial_node.preferred_suggestions[selection] = 1
-    end
-  end
-
   def find(partial, current=@root)
     letters = partial.downcase.chars
-    letters.each do |letter| #anything better than each? and/or recursive option?
+    letters.each do |letter|
       if current.has_child?(letter)
         current = current.children[letter]
       else
@@ -77,13 +56,3 @@ class Trie
 
 
 end
-
-trie = Trie.new
-trie.insert("hi")
-trie.insert("do")
-# trie.insert("howdy")
-# trie.insert("spot")
-# trie.insert("spa")
-# trie.insert("spaceship")
-# trie.insert("bob")
-trie.count

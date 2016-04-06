@@ -2,12 +2,12 @@ class Node
   def initialize
     @children = {}
     @word = false
-    @preferred_suggestions = {}
+    @preferences = {}
   end
 
   attr_accessor :children
   attr_accessor :word
-  attr_accessor :preferred_suggestions
+  attr_accessor :preferences
 
   def set_as_word
     @word = true
