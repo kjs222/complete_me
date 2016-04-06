@@ -2,6 +2,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "./lib/trie"
 require "./lib/node"
+require_relative "test_helper"
 
 class TrieTest < MiniTest::Test
   def setup
@@ -84,7 +85,6 @@ class TrieTest < MiniTest::Test
     assert_equal ["this", "is", "my", "dictionary"],
                   trie.format_dictionary(dictionary)
   end
-
 
   def test_loads_all_dictionary_words_from_file
     trie = Trie.new
