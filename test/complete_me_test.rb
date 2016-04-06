@@ -1,5 +1,5 @@
-require './test/test_helper'
-require "./lib/complete_me"
+require_relative '../test/test_helper'
+require_relative "../lib/complete_me"
 
 
 class CompleteMeTest < MiniTest::Test

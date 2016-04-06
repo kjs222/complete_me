@@ -1,6 +1,6 @@
-require './test/test_helper'
-require "./lib/trie"
-require "./lib/node"
+require_relative 'test_helper'
+require_relative "../lib/trie"
+require_relative "../lib/node"
 
 
 class TrieTest < MiniTest::Test
