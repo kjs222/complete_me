@@ -18,11 +18,12 @@ class Trie
     else
       current.set_as_word
     end
-
   end
 
+
+
+
   def count(current = @root)
-    #require 'pry'; binding.pry
     counter = 0
     if current.has_children?
       current.children.each do |letter, node|

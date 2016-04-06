@@ -61,11 +61,7 @@ class CompleteMe
   end
 
   def order_suggestions(partial, suggestions)
-    ordered = []
-    preferred = find(partial).show_preferences
-    preferred.each do |word|
-      ordered.push(word)
-    end
+    ordered = find(partial).show_preferences
     suggestions.each do |word|
       ordered.push(word) if !ordered.include?(word)
     end
