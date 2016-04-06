@@ -2,7 +2,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "./lib/node"
 require "./lib/trie"
-require_relative "test_helper"
+
 
 class NodeTest < MiniTest::Test
   def test_word_false_at_initiation

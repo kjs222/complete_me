@@ -1,5 +1,4 @@
 require_relative "node"
-require_relative "../test/test_helper"
 
 class Trie
   def initialize

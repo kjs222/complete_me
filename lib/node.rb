@@ -1,5 +1,3 @@
-require_relative "../test/test_helper"
-
 class Node
   def initialize
     @children = {}

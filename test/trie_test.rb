@@ -2,7 +2,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "./lib/trie"
 require "./lib/node"
-require_relative "test_helper"
+
 
 class TrieTest < MiniTest::Test
   def setup
