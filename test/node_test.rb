@@ -9,6 +9,11 @@ class NodeTest < MiniTest::Test
     refute node.word
   end
 
+  def test_node_has_no_children_when_instantiated
+    node = Node.new
+    refute node.has_children?
+  end
+
   def test_word_true_when_set_directly
     node = Node.new
     node.set_as_word
@@ -57,8 +62,10 @@ class NodeTest < MiniTest::Test
   def test_show_preferences_sorts_by_value_in_array
     node = Node.new
     node.preferences = {"apple" => 1, "app" => 8, "all" => 9}
-    # require 'pry'; binding.pry
     assert_equal ["all", "app", "apple"], node.show_preferences
+    node = Node.new
+    assert_equal [], node.show_preferences
+
   end
 
 end

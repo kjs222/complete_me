@@ -8,13 +8,21 @@ class TrieTest < MiniTest::Test
     @trie = Trie.new
   end
 
-  def test_inserts_new_without_any_path
+  def tree_has_root_on_instantiation
+    assert @trie.root
+  end
+
+  def tree_root_has_no_children_on_instantiation
+    refute @trie.root.has_children?
+  end
+
+  def test_inserts_word_with_no_path
     @trie.insert("hi")
     assert_equal ["h"], @trie.root.children.keys
     assert_equal ["i"], @trie.root.children["h"].children.keys
   end
 
-  def test_inserts_new_with_partial_path
+  def test_inserts_new_word_with_partial_path
     @trie.insert("hi")
     @trie.insert("hot")
     assert_equal ["h"], @trie.root.children.keys
@@ -30,42 +38,81 @@ class TrieTest < MiniTest::Test
     assert @trie.root.children["h"].children["o"].children["t"].word
   end
 
-  def test_counts_words
-    # require 'pry'; binding.pry
-    assert_equal 0, @trie.count
+  def test_it_treats_caps_as_different_letters
     @trie.insert("hi")
-    @trie.insert("hit")
-    assert_equal 2, @trie.count
-
-    @trie.insert("hats")
-    @trie.insert("hat")
-    assert_equal 4, @trie.count
-
-    @trie.insert("a")
-    @trie.insert("box")
-    assert_equal 6, @trie.count
-
-    @trie.insert("drop")
-    @trie.insert("lift")
-    assert_equal 8, @trie.count
+    @trie.insert("HI")
+    assert_equal ["h", "H"], @trie.root.children.keys
+    refute_equal ["I"], @trie.root.children["h"].children.keys
+    assert_equal ["I"], @trie.root.children["H"].children.keys
   end
 
-  def test_it_finds
+  def test_counts_no_words_on_instantiaion
+    assert_equal 0, @trie.count
+  end
+
+  def test_counts_two_words_with_no_shared_nodes
+    @trie.insert("hi")
+    @trie.insert("at")
+    assert_equal 2, @trie.count
+  end
+
+  def test_counts_words_with_shared_nodes
+    @trie.insert("hi")
+    @trie.insert("hit")
+    @trie.insert("hits")
+    @trie.insert("hitter")
+    assert_equal 4, @trie.count
+  end
+
+  def test_finds_node_from_partial
     trie = Trie.new
     trie.insert("hi")
     trie.insert("hit")
-    hit_node = trie.root.children["h"].children["i"].children["t"]
-    assert_equal hit_node, trie.find("hit")
-    assert_equal nil, trie.find("run")
+    hit_node = trie.root.children["h"].children["i"]
+    assert_equal hit_node, trie.find("hi")
   end
 
-  def test_it_loads_dictionary
+  def test_find_returns_nil_if_node_doesnt_exist
+    trie = Trie.new
+    trie.insert("hi")
+    assert_equal nil, trie.find("hit")
+  end
+
+  def test_formats_dictionary_for_loading
+    trie = Trie.new
+    dictionary = "this\nis\nmy\ndictionary"
+    assert_equal ["this", "is", "my", "dictionary"],
+                  trie.format_dictionary(dictionary)
+  end
+
+
+  def test_loads_all_dictionary_words_from_file
     trie = Trie.new
     dictionary = File.read("/usr/share/dict/words")
     trie.populate(dictionary)
     assert_equal 235886, trie.count
-    assert trie.find("Zuludom").word
-    refute trie.find("Zzzzzzzzzzzzz")
   end
+
+  def test_it_finds_a_partial_path_from_dictionary
+    trie = Trie.new
+    dictionary = "this\nis\nmy\ndictionary"
+    trie.populate(dictionary)
+    assert trie.find("thi")
+  end
+
+  def test_it_finds_and_knows_word_from_dictionary
+    trie = Trie.new
+    dictionary = "this\nis\nmy\ndictionary"
+    trie.populate(dictionary)
+    assert trie.find("this").word
+  end
+
+  def test_it_knows_a_path_is_not_in_dictionary
+    trie = Trie.new
+    dictionary = "this\nis\nmy\ndictionary"
+    trie.populate(dictionary)
+    refute trie.find("hi")
+  end
+
 
 end
