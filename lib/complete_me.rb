@@ -1,5 +1,5 @@
-require 'trie'
-require 'node'
+require_relative 'trie'
+require_relative 'node'
 
 class CompleteMe
 
