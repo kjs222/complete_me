@@ -109,7 +109,7 @@ class CompleteMeTest < MiniTest::Test
   end
 
   def test_completer_gets_addresses
-    completer = Trie.new
+    completer = CompleteMe.new
     addresses = completer.get_addresses('address_sample.csv')
     assert_equal 20, addresses.length
     assert_equal "4942 N Altura St", addresses[0]
@@ -117,7 +117,7 @@ class CompleteMeTest < MiniTest::Test
   end
 
   def test_completer_populates_addresses
-    completer = Trie.new
+    completer = CompleteMe.new
     completer.populate(completer.get_addresses('address_sample.csv'))
     assert_equal 20, completer.count
     assert completer.find("4705 N Iran St")

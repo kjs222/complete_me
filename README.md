@@ -17,13 +17,13 @@ Populate the autocompletion dictionary with a dictionary of words loaded on your
 
 ```
 dictionary = File.read("/usr/share/dict/words")
-completer.populate(dictionary)
+completion.populate(dictionary)
 ```
 or with the Denver street addresses you downloaded earlier:
 
 ```
-dictionary = completer.get_addresses('YOUR FILE PATH')
-completer.populate(dictionary)
+dictionary = completion.get_addresses('YOUR FILE PATH')
+completion.populate(dictionary)
 ```
 
 
