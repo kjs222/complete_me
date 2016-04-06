@@ -1,5 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
+require './test/test_helper'
 require "./lib/complete_me"
 
 
@@ -36,6 +35,15 @@ class CompleteMeTest < MiniTest::Test
     assert_equal hit_node, completer.find("hit")
   end
 
+  def test_completer_populates_from_dictionary
+      completer = CompleteMe.new
+      dictionary = "this\nis\nmy\ndictionary"
+      completer.populate(dictionary)
+      assert_equal 4, completer.count
+      assert_equal ["t", "i", "m", "d"], completer.root.children.keys
+
+  end
+
   def test_completer_returns_nil_if_no_node
     completer = CompleteMe.new
     assert_equal nil, completer.find("hi")
@@ -54,6 +62,7 @@ class CompleteMeTest < MiniTest::Test
     assert_equal 3, completer.count
   end
 
+
   def test_marks_selection
     completer = CompleteMe.new
     completer.insert("hi")
@@ -61,6 +70,15 @@ class CompleteMeTest < MiniTest::Test
     completer.insert("hitter")
     completer.select("hi", "hit")
     assert_equal ({"hit" => 1}), completer.find("hi").preferences
+  end
+
+  def test_marks_selection_when_selected_previously
+    completer = CompleteMe.new
+    completer.insert("hit")
+    completer.select("hi", "hit")
+    completer.select("hi", "hit")
+    completer.select("hi", "hit")
+    assert_equal ({"hit" => 3}), completer.find("hi").preferences
   end
 
   def test_selection_not_noted_for_others_on_path
