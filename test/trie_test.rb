@@ -113,5 +113,20 @@ class TrieTest < MiniTest::Test
     refute trie.find("hi")
   end
 
+  def test_gets_addresses
+    trie = Trie.new
+    addresses = trie.get_addresses('address_sample.csv')
+    assert_equal 20, addresses.length
+    assert_equal "4942 N Altura St", addresses[0]
+    assert_equal "4140 N Odessa St", addresses[-1]
+  end
+
+  def test_populates_addresses
+    trie = Trie.new
+    trie.populate(trie.get_addresses(('address_sample.csv')))
+    assert_equal 20, trie.count
+    assert trie.find("4705 N Iran St")
+  end
+
 
 end

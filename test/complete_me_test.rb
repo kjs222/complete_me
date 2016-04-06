@@ -108,4 +108,26 @@ class CompleteMeTest < MiniTest::Test
     assert_equal ["hit", "hi", "happy"], completer.suggest("h")
   end
 
+  def test_completer_gets_addresses
+    completer = Trie.new
+    addresses = completer.get_addresses('address_sample.csv')
+    assert_equal 20, addresses.length
+    assert_equal "4942 N Altura St", addresses[0]
+    assert_equal "4140 N Odessa St", addresses[-1]
+  end
+
+  def test_completer_populates_addresses
+    completer = Trie.new
+    completer.populate(completer.get_addresses('address_sample.csv'))
+    assert_equal 20, completer.count
+    assert completer.find("4705 N Iran St")
+  end
+
+
+  def test_completer_suggests_addresses
+    completer = CompleteMe.new
+    completer.populate(completer.get_addresses('address_sample.csv'))
+    assert completer.suggest("4140").include?("4140 N Odessa St")
+  end
+
 end

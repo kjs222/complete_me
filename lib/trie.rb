@@ -1,4 +1,5 @@
 require_relative "node"
+require 'csv'
 
 class Trie
   def initialize
@@ -33,14 +34,27 @@ class Trie
   end
 
   def populate(dictionary)
-    format_dictionary(dictionary).each do |word|
-      insert(word)
+    if dictionary.class == String
+      dictionary = format_dictionary(dictionary)
+    end
+    dictionary.each do |item|
+      insert(item)
     end
   end
 
   def format_dictionary(dictionary)
     dictionary = dictionary.split("\n")
   end
+
+  def get_addresses(path)
+    full_addresses = []
+    CSV.foreach(path) do |row|
+      full_addresses.push(row[-1])
+    end
+    full_addresses[1..-1]
+  end
+
+
 
   def find(partial, current=@root)
     letters = partial.chars

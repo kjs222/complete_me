@@ -1,5 +1,7 @@
 require_relative 'trie'
 require_relative 'node'
+require 'csv'
+
 
 class CompleteMe
 
@@ -27,6 +29,10 @@ class CompleteMe
 
   def count
     trie.count
+  end
+
+  def get_addresses(path)
+    trie.get_addresses(path)
   end
 
   def select(partial, selection)
