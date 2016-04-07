@@ -123,7 +123,7 @@ class TrieTest < MiniTest::Test
 
   def test_completer_gets_addresses_from_web
     #skipped for speed.  this functionality included in above
-    skip 
+    skip
     completer = CompleteMe.new
     addresses = completer.get_addresses
     assert_equal 285861, addresses.length

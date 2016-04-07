@@ -120,6 +120,8 @@ class CompleteMeTest < MiniTest::Test
   end
 
   def test_completer_populates_addresses
+    #skipped for speed.  this functionality included below
+    skip
     completer = CompleteMe.new
     completer.populate(completer.get_addresses)
     assert_equal 285861, completer.count
