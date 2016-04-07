@@ -31,6 +31,10 @@ class CompleteMe
     trie.count
   end
 
+  def delete_prune(word)
+    trie.delete_prune(word)
+  end
+
   def get_addresses
     trie.get_addresses
   end

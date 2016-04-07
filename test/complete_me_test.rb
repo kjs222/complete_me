@@ -130,9 +130,27 @@ class CompleteMeTest < MiniTest::Test
 
 
   def test_completer_suggests_addresses
+    skip
     completer = CompleteMe.new
     completer.populate(completer.get_addresses)
     assert completer.suggest("4140").include?("4140 N Odessa St")
   end
+
+  def test_delete_prune
+    completer = CompleteMe.new
+    completer.insert("hi")
+    completer.insert("hit")
+    completer.insert("hitter")
+    completer.delete_prune("hitter")
+
+    refute completer.find("hitter")
+    refute completer.find("hitt")
+    assert completer.find("hit")
+    assert_equal 2, completer.count
+    assert completer.find("hit").children.empty?
+    assert completer.find("hit").word
+  end
+
+
 
 end

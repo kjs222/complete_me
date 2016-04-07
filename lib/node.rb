@@ -1,13 +1,13 @@
 class Node
+  
+  attr_accessor :children, :word, :preferences
+
   def initialize
     @children = {}
     @word = false
     @preferences = {}
   end
 
-  attr_accessor :children
-  attr_accessor :word
-  attr_accessor :preferences
 
   def set_as_word
     @word = true

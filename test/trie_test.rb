@@ -115,6 +115,7 @@ class TrieTest < MiniTest::Test
 
 
   def test_populates_addresses
+    skip
     trie = Trie.new
     trie.populate(trie.get_addresses)
     assert_equal 285861, trie.count

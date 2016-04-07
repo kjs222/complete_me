@@ -1,12 +1,14 @@
 require_relative "node"
 require 'csv'
+require 'pry'
 
 class Trie
+  attr_reader :root
+
   def initialize
     @root = Node.new
   end
 
-  attr_reader :root
 
   def insert(word, current=@root)
     letter = word.chars.first
@@ -70,6 +72,23 @@ class Trie
     end
     current
   end
+
+  def delete_prune(word, counter=1) #I am going up two levels
+    # binding.pry
+    node = find(word[0..-counter])
+    parent = find(word[0..-(counter+1)])
+    if counter == 1
+      node.word = false
+    end
+    if !node.has_children? & !node.word
+      parent.children.delete(word[-counter])
+      counter += 1
+      # delete_prune(word[0..-counter], counter)
+      delete_prune(word, counter)
+    end
+  end
+
+
 
 
 end
