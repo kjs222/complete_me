@@ -22,7 +22,7 @@ completion.populate(dictionary)
 or with the Denver street addresses you downloaded earlier:
 
 ```
-dictionary = completion.get_addresses('YOUR FILE PATH')
+dictionary = completion.get_addresses
 completion.populate(dictionary)
 ```
 

@@ -20,9 +20,6 @@ class Trie
     end
   end
 
-
-
-
   def count(current = @root)
     counter = 0
     if current.has_children?
@@ -47,15 +44,20 @@ class Trie
     dictionary = dictionary.split("\n")
   end
 
-  def get_addresses(path)
+  def get_addresses
+    get_address_file
     full_addresses = []
-    CSV.foreach(path) do |row|
+    CSV.foreach('/tmp/addresses.csv') do |row|
       full_addresses.push(row[-1])
     end
-    full_addresses[1..-1]
+    full_addresses[1..-1].uniq
   end
 
-
+  def get_address_file
+    if !File.exist?('/tmp/addresses.csv')
+      system("curl http://data.denvergov.org/download/gis/addresses/csv/addresses.csv > /tmp/addresses.csv")
+    end
+  end
 
   def find(partial, current=@root)
     letters = partial.chars
@@ -68,5 +70,6 @@ class Trie
     end
     current
   end
+
 
 end

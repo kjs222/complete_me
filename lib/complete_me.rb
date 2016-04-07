@@ -31,8 +31,8 @@ class CompleteMe
     trie.count
   end
 
-  def get_addresses(path)
-    trie.get_addresses(path)
+  def get_addresses
+    trie.get_addresses
   end
 
   def select(partial, selection)
